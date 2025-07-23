@@ -134,13 +134,13 @@ function App() {
 
     const result = stop();
     
-    if (result.wasRunning && result.duration > 0) {
+    if (result.wasRunning && result.duration >= 0) {
       const activeTask = tasks.find(t => t.id === activeTaskId);
       if (activeTask) {
         const newEntry: TimeEntry = {
           taskId: activeTaskId,
           taskName: activeTask.name,
-          startTime: result.startTime!,
+          startTime: result.startTime || Date.now() - (result.duration * 1000),
           endTime: result.endTime,
           duration: result.duration,
           date: getTodayString()
